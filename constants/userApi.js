@@ -1,0 +1,1 @@
+export const RANDOM_USER_API = "http://data.koreatimes.com/article/2019/11/11/1279573.data";
