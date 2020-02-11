@@ -27,7 +27,8 @@ class DetailOpinion extends Component {
         const opNo = {match}.match.params.p3
 
         const rendingData = this.findingData(opNo, {dataFetchingReducer}.dataFetchingReducer)
-    console.log(rendingData)
+
+        console.log(rendingData)
 
         return (
             <>

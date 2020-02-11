@@ -15,7 +15,7 @@ class MainOpinion extends Component {
 
     componentDidMount() {
         const { petchingMainOpinion } = this.props
-        petchingMainOpinion()
+       // petchingMainOpinion()
     }
 
     render () {
@@ -39,7 +39,7 @@ class MainOpinion extends Component {
 }
 
 const mapDispatchToProps = dispatch =>
-    bindActionCreators({ petchingMainOpinion }, dispatch)
+    bindActionCreators({  }, dispatch)
 
 export default connect(
     null,

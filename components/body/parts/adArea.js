@@ -16,7 +16,8 @@ class AdArea extends Component {
 
         let classType = "ad_area";
 
-        if(this.props.location.pathname=='/article' || this.props.location.pathname =='/opinion') {
+
+        if(this.props.pathname=='article' || this.props.location.pathname=='/article' || this.props.location.pathname =='/opinion') {
             classType = "ad_area pt0 mt0";
         }
 

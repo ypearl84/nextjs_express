@@ -1,175 +1,92 @@
-import React, { Component , Fragment } from 'react'
+import React, {Component, Fragment} from 'react'
+import { default as ListItem } from '../../containers/commentItem'
+import Axios from "axios"
 
 
 class CommentArea extends Component {
 
     constructor(props) {
-        super(props);
+        super(props)
+        this.state = { articleId : props.articleId, list : [], loadedCommentLength: 5 }
+        this.getData.bind(this)
+        this.clickMoreComment.bind(this)
+    }
+
+    getData = async() => {
+
+        try {
+
+            const url = `https://epaperapi.koreatimes.com/koreatimes/article/comment_list?articleId=${this.state.articleId}`
+
+            await Axios.get(url, {headers: {'Client-key': '9a9e059068347c04bbb40455b3e5c03b05a8484bfb3c645fb3974db45a3e4d6478c2f46a554c013353f900c754eed9e0991ad5e5248a6b797d134a82f5d671ceEr2pvrMg94YhQz3IRVUatdD1txT5WV6Ik7MMuY1UoZtQchUeQ1xp2e8E5bc/i3ayoP1o9gXsqKUrK4wFXzLRhHuEFRS0KYznrI4yhO93meOuA7IQSfbBv9tAPJho2A0G'}}).then(data => {
+                this.setState({ list : data.data.result })
+            });
+
+        } catch (e) {
+            console.log(e)
+        }
+
+    }
+
+    clickMoreComment = () => {
+        this.setState((prevState) => {
+            return {
+                loadedCommentLength : prevState.loadedCommentLength + 5
+            }
+        })
+    }
+
+    componentDidMount() {
+        // 첫 로딩시에 getData 호출
+        this.getData()
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+
+        if(prevState.articleId===nextProps.articleId) return false
+
+        return { articleId : nextProps.articleId }
+
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.articleId !== this.state.articleId) {
+
+            this.getData()
+        }
     }
 
     render () {
-
         return (
             <Fragment>
                 <div className="section total_comment">
-                    <strong className="total">댓글 237</strong>
+                    <strong className="total">댓글 {this.state.list.length}</strong>
                     <a href="my_comment.html" className="go_my_comment">내 댓글
                         <span className="ico"></span>
                     </a>
                 </div>
-
                 <div className="section comment_list">
-                <div className="input">
-                <input type="text" placeholder="댓글을 입력해주세요"/>
-                <input type="button" value="등록"/>
+                    <div className="input">
+                        <input type="text" placeholder="댓글을 입력해주세요"/>
+                        <input type="button" value="등록"/>
+                    </div>
+                    { this.state.list.length > 0 &&
+                        <Fragment>
+                            <ul className="list">
+                                {
+                                    this.state.list.slice(0,this.state.loadedCommentLength).map(function(row) {
+                                        return <ListItem key={row.articleId} item={row}  />
+                                    })
+                                }
+                            </ul>
+                            {
+                                this.state.list.length > this.state.loadedCommentLength && <a className="btn_list_more" onClick={this.clickMoreComment}>더보기 <span className="ico"></span></a>
+                            }
+
+                        </Fragment>
+                    }
                 </div>
-            <ul className="list">
-                <li>
-                    <div className="comment">
-                        <strong className="user">Honggildong</strong>
-                        <div className="txt">
-                            정말 안타깝네요 잠깐 부진인걸까요  오래가지 않았으면 하는데 계속 안좋은기사만 뜨네요 류현진 경기보면서 힘을 얻는 사람들이 많습니다  류현진 선수
-                            힘내세요
-                        </div>
-                        <div className="bottom">
-                            <span className="date">2019-09-20</span>
-                            <a href="#" className="btn_report"><span className="bar">I</span>신고</a>
-                        </div>
-                        <a className="btn_reply">답글 0</a>
-                    </div>
-                    <div className="reply_wrap">
-                        <div className="reply_write">
-                            <div className="deco"><i className="v"></i><i className="h"></i></div>
-                            <div className="box">
-                                <input type="text" placeholder="답글을 입력해주세요"/>
-                                <a href="#self" className="btn_regi">등록</a>
-                            </div>
-                            <a href="#self" className="btn_close">답글 접기<span className="ico"></span></a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div className="comment">
-                        <strong className="user">Honggildong</strong>
-                        <div className="txt">
-                            정말 안타깝네요 잠깐 부진인걸까요  오래가지 않았으면 하는데 계속 안좋은기사만 뜨네요 류현진 경기보면서 힘을 얻는 사람들이 많습니다. 류현진 선수
-                            힘내세요 할수있다
-                        </div>
-                        <div className="bottom">
-                            <span className="date">2019-09-20</span>
-                            <a href="#" className="btn_report"><span className="bar">I</span>신고</a>
-                        </div>
-                        <a className="btn_reply">답글 0</a>
-                    </div>
-                    <div className="reply_wrap">
-                        <div className="reply_write">
-                            <div className="deco"><i className="v"></i><i className="h"></i></div>
-                            <div className="box">
-                                <input type="text" placeholder="답글을 입력해주세요"/>
-                                <a href="#self" className="btn_regi">등록</a>
-                            </div>
-                            <a href="#self" className="btn_close">답글 접기<span className="ico"></span></a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div className="comment">
-                        <strong className="user">Honggildong</strong>
-                        <div className="txt">
-                            정말 안타깝네요 잠깐 부진인걸까요  오래가지 않았으면 하는데 계속 안좋은기사만 뜨네요 류현진 경기보면서 힘을 얻는 사람들이 많습니다. 류현진 선수
-                            힘내세요  할수있다
-                        </div>
-                        <div className="bottom">
-                            <span className="date">2019-09-20</span>
-                            <a href="#" className="btn_report"><span className="bar">I</span>신고</a>
-                        </div>
-                        <a className="btn_reply">답글 0</a>
-                    </div>
-                    <div className="reply_wrap">
-                        <div className="reply_write">
-                            <div className="deco"><i className="v"></i><i className="h"></i></div>
-                            <div className="box">
-                                <input type="text" placeholder="답글을 입력해주세요"/>
-                                <a href="#self" className="btn_regi">등록</a>
-                            </div>
-                            <a href="#self" className="btn_close">답글 접기<span className="ico"></span></a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div className="comment">
-                        <div className="deco"><i className="v"></i><i className="h"></i></div>
-                        <strong className="user">Honggildong</strong>
-                        <div className="txt">
-                            정말 안타깝네요 잠깐 부진인걸까요  오래가지 않았으면 하는데 계속 안좋은기사만 뜨네요. 류현진 경기보면서 힘을 얻는 사람들이 많습니다. 류현진 선수
-                            힘내세요  할수있다
-                        </div>
-                        <div className="bottom">
-                            <span className="date">2019-09-20</span>
-                            <a href="#" className="btn_report"><span className="bar">I</span> 신고</a>
-                        </div>
-                        <a className="btn_reply">답글 2</a>
-                    </div>
-                    <div className="reply_wrap">
-                        <div className="reply">
-                            <div className="deco"><i className="v"></i><i className="h"></i></div>
-                            <strong className="user">Honggildong</strong>
-                            <div className="txt">
-                                정말 안타깝네
-                            </div>
-                            <div className="bottom">
-                                <span className="date">2019-09-20</span>
-                                <a className="btn_report"><span className="bar">I</span> 신고</a>
-                            </div>
-                        </div>
-                        <div className="reply">
-                            <div className="deco"><i className="v"></i><i className="h"></i></div>
-                            <strong className="user">Honggildong</strong>
-                            <div className="txt">
-                                정말 안타깝네
-                            </div>
-                            <div className="bottom">
-                                <span className="date">2019-09-20</span>
-                                <a className="btn_report"><span className="bar">I</span> 신고</a>
-                            </div>
-                        </div>
-                        <div className="reply_write">
-                            <div className="deco"><i className="v"></i><i className="h"></i></div>
-                            <div className="box">
-                                <input type="text" placeholder="답글을 입력해주세요"/>
-                                <a href="#self" className="btn_regi">등록</a>
-                            </div>
-                            <a href="#self" className="btn_close">답글 접기<span className="ico"></span></a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div className="comment">
-                        <strong className="user">Honggildong</strong>
-                        <div className="txt">
-                            정말
-                        </div>
-                        <div className="bottom">
-                            <span className="date">2019-09-20</span>
-                            <a href="#" className="btn_report"><span className="bar">I</span>신고</a>
-                        </div>
-                        <a className="btn_reply">답글 0</a>
-                    </div>
-                    <div className="reply_wrap">
-                        <div className="reply_write">
-                            <div className="deco"><i className="v"></i><i className="h"></i></div>
-                            <div className="box">
-                                <input type="text" placeholder="답글을 입력해주세요"/>
-                                <a href="#self" className="btn_regi">등록</a>
-                            </div>
-                            <a href="#self" className="btn_close">답글 접기<span className="ico"></span></a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <a className="btn_list_more">더보기 <span className="ico"></span></a>
-            </div>
-        </Fragment>
+            </Fragment>
         )
     }
 }

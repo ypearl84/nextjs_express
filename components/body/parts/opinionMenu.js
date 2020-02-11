@@ -1,19 +1,30 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { NavLink } from 'react-router-dom'
 import OpinionList from '../../../constants/opinionList'
 
 class OpinionMenu extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { opinionMenu: false };
+        this.state = { opinionMenu: false , match : props.match };
         this.onClick  = this.onClick.bind(this);
     }
 
     onClick() {
         //this.setState({ opinionMenu: true })
         this.setState((state, props) => ({opinionMenu: this.state.opinionMenu?false:true}));
+
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+
+        if(prevState.match.params.p2===nextProps.match.params.p2 && prevState.match.params.p3===nextProps.match.params.p3) return false
+
+        //this.onClick()
+
+        return { opinionMenu: false, match : nextProps.match }
 
     }
 
@@ -35,7 +46,7 @@ class OpinionMenu extends Component {
                     <ul>
                         {
                             OpinionList.opinion.map( row => (
-                                <li key={row.id} className={row.liClass}><a href={'/opinion/113/'+row.id}>{row.name}</a></li>
+                                <li key={row.id} className={row.liClass}><NavLink to={'/opinion/113/'+row.id}>{row.name}</NavLink></li>
                             ))
                         }
                     </ul>

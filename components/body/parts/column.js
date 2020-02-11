@@ -18,7 +18,7 @@ class Column extends Component {
                             dataFetchingReducer.opinionColumn.map( row => (
                                 !!row &&
                                         <li key={row.articleId}>
-                                            <a href={'/article/' + row.articleId} className="img"><img src={row.thumbnail} alt={row.categoryName} /></a>
+                                            <a href={'/article/' + row.articleId} className="img"><img src={'http://img.koreatimes.com/2015/images/opinion/opinion_'+row.c2Id+'.jpg'} alt={row.categoryName} /></a>
                                             <a href={'/article/' + row.articleId} className="txt">
                                             <span className="tit">{row.title}</span>
                                             <span className="writer">{row.writer}</span>

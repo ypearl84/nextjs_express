@@ -19,7 +19,7 @@ class Etc extends Component {
                                 !!row &&
                                     <li key={row.articleId}>
                                         <a href={'/article/' + row.articleId} className="img">
-                                            <img src={row.thumbnail} alt="나의 의견" /></a>
+                                            <img src={'http://img.koreatimes.com/2015/images/opinion/opinion_'+row.c2Id+'.jpg'} alt="나의 의견" /></a>
                                         <a href={'/article/' + row.articleId} className="txt">
                                             <span className="tit">{row.title}</span>
                                             <span className="writer">{row.writer}</span>

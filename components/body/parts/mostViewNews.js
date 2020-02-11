@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { NavLink } from 'react-router-dom'
 
 import { default as ListItem } from '../../containers/popularNewsItem'
 import {petchingArticleDetailBestClick} from "../../../actions/actions"
@@ -30,7 +31,7 @@ class MostViewNews extends Component {
 
 
                 </ul>
-                <a className="btn_list_more"><span className="txt_point">많이 본 기사 50</span> 더보기 <span className="ico"></span></a>
+                <NavLink className="btn_list_more" to='/top50'><span className="txt_point">많이 본 기사 50</span> 더보기 <span className="ico"></span></NavLink>
             </div>
         )
     }

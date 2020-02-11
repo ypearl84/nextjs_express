@@ -4,23 +4,59 @@ import { bindActionCreators } from 'redux'
 import { petchingMainNewsList } from '../../../actions/actions'
 
 import { default as ListItem } from '../../containers/newsListItem'
+import Axios from "axios";
 
 class NewsList extends Component {
 
+    constructor(props) {
+        super(props)
+
+        //const { dataFetchingReducer } = this.props;
+
+        const { petchingMainNewsList } = props
+
+        this.getData.bind(this)
+
+        this.state = { branch : props.branch }
+    }
+
+    getData = (branch) => {
+
+        try {
+            this.props.petchingMainNewsList(branch)
+
+        } catch (e) {
+            console.log(e)
+        }
+
+    }
+
     componentDidMount() {
-        const { petchingMainNewsList } = this.props
-        petchingMainNewsList()
+        // 첫 로딩시에 getData 호출
+        this.getData(this.state.branch)
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.branch !== this.state.branch) {
+            this.getData(this.state.branch)
+        }
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+
+        if(prevState.branch===nextProps.branch) return false
+
+        return { branch : nextProps.branch }
+
     }
 
     render () {
-
-        const { dataFetchingReducer } = this.props;
 
         return (
             <div className="news_list_infinite">
                 <ul>
                     {
-                        dataFetchingReducer.mainNewsList.map( row => (
+                        this.props.dataFetchingReducer.mainNewsList.map( row => (
 
                             <ListItem key={row.info1} item={row}/>
 

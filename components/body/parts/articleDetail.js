@@ -8,13 +8,18 @@ import AdArea from './adArea'
 
 class ArticleDetail extends Component {
 
-    render () {
+    constructor(props) {
+        super(props)
 
+        this.state = { item : props.item }
+    }
+
+    render () {
 
         return (
             <div className="detail_wrap">
                 <NewsItem item={this.props.item}  />
-                <CommentArea />
+                <CommentArea articleId={this.props.item.articleId}/>
                 <AdArea />
             </div>
         )
