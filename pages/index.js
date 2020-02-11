@@ -1,44 +1,36 @@
-import React, {Component} from 'react'
-import Layout from '../components/Layout'
-import { useDispatch } from 'react-redux'
-import fetch from 'isomorphic-unfetch'
-import {reduxPage} from "../store";
+import React, {Component, Fragment} from 'react'
+import Layout from '../components/layout'
+import {reduxPage} from "../store"
+import {Redirect, Route, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import Axios from 'axios';
-
+// export default class extends Component {
 
 class Index extends Component {
-
-
 /*
-    state = {
-        isLoading: true,
-        movies: []
-    }
-
-
-    getMovies = async() => {
-        const { data: { data: { movies } } } = await Axios.get("https://yts.lt/api/v2/list_movies.json?sort_by=rating");
-        this.setState({
-            movies: movies,
-            isLoading: false
-        });
-    }
-
-    componentDidMount() {
-        this.getMovies();
-    }
-
-*/
-
+    static getInitialProps({ query: { id } }) {
+        console.log("SSR")
+        return { postId: id }
+    }*/
 
     render() {
-        return <Layout />
+
+        return (
+            <Fragment>
+                <Route path={"/home"}>
+                    <Redirect to={"/"} />
+                </Route>
+                <Route path={"/:p1?/:p2?/:p3?"} component={Layout} />
+            </Fragment>
+        )
     }
 
 }
 
-export default reduxPage(Index)
+export default reduxPage(connect(
+    null,
+    null
+)(Index))
 /*
 
 static async getInitialProps({ reduxStore }) {
