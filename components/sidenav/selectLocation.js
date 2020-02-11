@@ -1,14 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { clickingNavLocationFolder } from '../../actions/actions'
+import { clickingNavLocationFolder, changingBranch } from '../../actions/actions'
 
 class SelectLocation extends Component {
 
-    click = () => {
+    openFolder = () => {
         const { clickingNavLocationFolder } = this.props
         clickingNavLocationFolder()
 
+    }
+
+    changeBranch = (branch, e) => {
+       // function handleClick(e) {
+            e.preventDefault()
+            const { changingBranch } = this.props
+            changingBranch(branch)
+       // }
     }
 
   render () {
@@ -17,16 +25,16 @@ class SelectLocation extends Component {
 
       return (
         <div className={!!switchReducer.locationFolder ? 'select_location side_section active' : 'select_location side_section' }>
-            <h2 className="slide_down_menu" >지역선택 <span className="ico" onClick={this.click} /* style="background-position: 0px 1px;" */></span>
+            <h2 className="slide_down_menu" >지역선택 <span className="ico" onClick={this.openFolder} /* style="background-position: 0px 1px;" */></span>
             </h2>
             <ul>
-                <li className="la current"><a href="http://la.koreatimes.com/">LA</a></li>
-                <li className="ny"><a href="http://ny.koreatimes.com/">NY</a></li>
-                <li className="dc"><a href="http://dc.koreatimes.com/">DC</a></li>
-                <li className="sf"><a href="http://sf.koreatimes.com/">SF</a></li>
-                <li className="seattle bd_none"><a href="http://seattle.koreatimes.com/">SEA</a></li>
-                <li className="hawaii bd_none"><a href="http://hawaii.koreatimes.com/">HI</a></li>
-                <li className="chi bd_none"><a href="http://chi.koreatimes.com/">CHI</a></li>
+                <li className={'la ' + (switchReducer.selectedBranch=='LA'?'current':'')}  onClick={(e)=>this.changeBranch('LA', e)}><a>LA</a></li>
+                <li className={'ny ' + (switchReducer.selectedBranch=='NY'?'current':'')} onClick={(e)=>this.changeBranch('NY', e)}><a>NY</a></li>
+                <li className={'dc ' + (switchReducer.selectedBranch=='DC'?'current':'')} onClick={(e)=>this.changeBranch('DC', e)}><a>DC</a></li>
+                <li className={'sf ' + (switchReducer.selectedBranch=='SF'?'current':'')} onClick={(e)=>this.changeBranch('SF', e)}><a>SF</a></li>
+                <li className={'seattle bd_none ' + (switchReducer.selectedBranch=='SEA'?'current':'')} onClick={(e)=>this.changeBranch('SEA', e)}><a>SEA</a></li>
+                <li className={'hawaii bd_none ' + (switchReducer.selectedBranch=='HI'?'current':'')} onClick={(e)=>this.changeBranch('HI', e)}><a>HI</a></li>
+                <li className={'chi bd_none ' + (switchReducer.selectedBranch=='CHI'?'current':'')} onClick={(e)=>this.changeBranch('CHI', e)}><a>CHI</a></li>
             </ul>
         </div>
     )
@@ -39,7 +47,7 @@ function mapStateToProps (state) {
 }
 
 const mapDispatchToProps = dispatch =>
-    bindActionCreators({ clickingNavLocationFolder }, dispatch)
+    bindActionCreators({ clickingNavLocationFolder, changingBranch }, dispatch)
 
 export default connect(
     mapStateToProps,

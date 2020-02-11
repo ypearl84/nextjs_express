@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import {connect} from "react-redux"
 import { bindActionCreators } from 'redux'
-
-import {clickingMainLogo} from "../../actions/actions";
+import { NavLink } from 'react-router-dom'
+import {clickingMainLogo} from "../../actions/actions"
+import { useRouter } from 'next/router'
 
 class MainLogo extends Component {
 
-    logoClick = () => {
+    /*logoClick = () => {
         const { clickingMainLogo } = this.props
         clickingMainLogo()
-    }
+    }*/
+
+
 
     searchClick = () => {
         const { clickingSearchBtn } = this.props
@@ -19,9 +22,9 @@ class MainLogo extends Component {
     render () {
         return (
                 <h1>
-                    <a onClick={this.logoClick}>
+                    <NavLink to="/" >
                         <img src={require("../../public/logo.png")} alt={"미주한국일보 THE KOREA TIMES"} />
-                    </a>
+                    </NavLink>
                 </h1>
 
         )

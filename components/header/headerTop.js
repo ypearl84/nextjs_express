@@ -21,21 +21,23 @@ class headerTop extends Component {
 
     render () {
 
-        const { switchReducer } = this.props
+        const { match } = this.props
 
         return (
-            <div id="headerTop" className={ switchReducer.gnbSelector === 'main' ? '' : 'section_header'}>
+            <div id="headerTop">
                 <Hamburger />
-                { switchReducer.gnbSelector === 'main' ? <><MainLogo />
-                <select name='' id="" className="slt_location">
-                    <option value="">LA</option>
-                    <option value="">NY</option>
-                    <option value="">DC</option>
-                    <option value="">SF</option>
-                    <option value="">SEA</option>
-                    <option value="">HI</option>
-                    <option value="">CHI</option>
-                </select></>: <SectionLogo name={switchReducer.gnbSubSelector} /> }
+                { match.params.p1 === 'section' ?
+                    <SectionLogo name={match.params.p2} /> :
+                    <><MainLogo />
+                        <select name='' id="" className="slt_location">
+                            <option value="">LA</option>
+                            <option value="">NY</option>
+                            <option value="">DC</option>
+                            <option value="">SF</option>
+                            <option value="">SEA</option>
+                            <option value="">HI</option>
+                            <option value="">CHI</option>
+                        </select></> }
                 <a onClick={this.searchClick} className={"btn_sch"}><img src={require("../../public/bt_sch.png")} alt="검색" /></a>
             </div>
         )

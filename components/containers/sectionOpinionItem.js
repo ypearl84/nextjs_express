@@ -13,7 +13,7 @@ export default ({item}) => (
         <input type='text' name='title' placeholder='What needs to be done?' />
     </form> */
     <li key={item.info1}>
-        <NavLink to={item.url} className="img"><img src={item.image} alt={item.cName} /></NavLink>
+        <NavLink to={item.url} className="img"><img src={'http://img.koreatimes.com/2015/images/opinion/opinion_'+item.c2Id+'.jpg'} alt={item.cName} /></NavLink>
         <NavLink to={item.url} className="txt">
             <span className="tit">{item.title}</span>
             <span className="sub_txt"></span>

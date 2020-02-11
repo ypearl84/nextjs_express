@@ -4,18 +4,22 @@ import { Router } from '../../routes'
 
 class Footer extends Component {
 
-    handleClick () {
+    buttonClick () {
         // With route name and params
         //Router.pushRoute('home', {slug: 'hello-world'})
         // With route URL
-        Router.pushRoute('/home/hello-world')
-    }
+        //Router.pushRoute('/home/hello-world')
+
+            window.scrollTo(0,0)
+
+        }
+
 
     render () {
         return (
             <div id="footer">
                 <div className="btn_top_wrap">
-                    <a className="btn_top" onClick={this.handleClick}><img src={require("../../public/bt_top.png")} alt="맨위로" /></a>
+                    <a className="btn_top" onClick={this.buttonClick}><img src={require("../../public/bt_top.png")} alt="맨위로" /></a>
 
                     <span>맨위로</span>
                 </div>

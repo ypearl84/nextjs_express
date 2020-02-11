@@ -11,7 +11,7 @@ class Opinion extends Component {
 
         return (
             <div id="container" className={ location.pathname==='/opinion' ? "bg_container" : "" }>
-               { location.pathname==='/opinion' ? <MainOpinion location={location} /> : <DetailOpinion location={location} match={match} /> }
+                { location.pathname==='/opinion' ? <MainOpinion location={location} /> : <DetailOpinion location={location} match={match} /> }
             </div>
         )
     }

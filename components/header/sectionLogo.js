@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import {connect} from "react-redux"
 import { bindActionCreators } from 'redux'
 import GnbList from '../../constants/gnbList'
+import { NavLink } from 'react-router-dom'
 
-import {clickingMainLogo} from "../../actions/actions";
+import {clickingMainLogo} from "../../actions/actions"
 
 class SectionLogo extends Component {
 
@@ -22,7 +23,7 @@ class SectionLogo extends Component {
         })
 
         const sectionTit = sectionList.list.find(function (row) {
-             if(row.id=={name}.name)
+             if(row.id==name)
                  return row
 
         })
@@ -30,11 +31,11 @@ class SectionLogo extends Component {
         return (
             <>
                 <h1 className="logo_emblem">
-                    <a href="../index.html">
+                    <NavLink to="/">
                         <img src={require("../../public/logo_emblem.png")} alt="미주한국일보 THE KOREA TIMES" />
-                    </a>
+                    </NavLink>
                 </h1>
-                <h2 className="section_tit">{sectionTit.name}</h2>
+                <h2 className="section_tit"><NavLink to={'/section/' + name}>{sectionTit.name}</NavLink></h2>
             </>
         )
     }

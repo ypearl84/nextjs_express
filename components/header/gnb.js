@@ -46,12 +46,12 @@ class Gnb extends Component {
 
     _makingGnb() {
 
-        const { switchReducer } = this.props;
+        const { match } = this.props;
 
         //const hSection = { switchReducer }.switchReducer.headerSection;
         //const mSection = { section }.section.mainSection;
 
-        let hSection = { switchReducer }.switchReducer.gnbSelector
+        let hSection = match.params.p1 === 'section' || match.params.p1 === 'livinginfo' ? match.params.p1 : 'main'
 
         let selectedGnb = GnbList.gnbs.find(function (row) {
             if( row.id==hSection) {
@@ -62,7 +62,7 @@ class Gnb extends Component {
         // section 일 경우 1depth 더 들어감
         if(hSection=='section') {
             selectedGnb = selectedGnb.list.find(function(row) {
-                if(row.id=={ switchReducer }.switchReducer.gnbSubSelector) {
+                if(row.id==match.params.p2) {
                     hSection = 'section/'+row.id
                     return row
                 }
@@ -70,7 +70,7 @@ class Gnb extends Component {
         }
 
         let selectedGnbli = selectedGnb.list.map((row) => {
-
+           //return <li key={row.id}><a href={ '/' + (hSection=='main'?'': hSection+'/') + row.id} activeClassName="on">{row.name}</a></li>
             return <li key={row.id}><NavLink to={ '/' + (hSection=='main'?'': hSection+'/') + row.id} activeClassName="on">{row.name}</NavLink></li>
              //return <li key={row.id} className={ row.id==mSection ? "on" : "" }><a onClick={(e)=>this.click(row.id)}>{row.name}</a></li>
             //return <li key={row.id} className={ row.id==mSection ? "on" : "" }><ActiveLink href={'/index'} >{row.name}</ActiveLink></li>
@@ -91,15 +91,15 @@ class Gnb extends Component {
 
         return (
                 <>
-                    {this._makingGnb()}
+                   {this._makingGnb()}
                 </>
         )
     }
 }
 
 function mapStateToProps (state) {
-    const { switchReducer } = state
-    return { switchReducer }
+    const {   } = state
+    return {   }
 }
 
 /*

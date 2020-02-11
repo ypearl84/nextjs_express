@@ -5,7 +5,7 @@ import imageCheck from 'image-exists'
 export default ({item, index}) => (
     <li>
         <NavLink to={item.url} className="img">
-            <span className="rank">{index+1}</span>
+            <span className="rank">{index}</span>
             <img src={'http://image.koreatimes.com'+item.thumbnail} alt="기사이미지" />
         </NavLink>
         <NavLink to={item.url} className="txt">
