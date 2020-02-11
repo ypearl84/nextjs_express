@@ -6,7 +6,11 @@ import storage from 'redux-persist/lib/storage'
 import reducer, { initialState as setinitialState } from './reducers'
 import withRedux from 'next-redux-wrapper'
 import thunkMiddleware from "redux-thunk"
-import withRouter from 'next/router'
+
+//import { createBrowserHistory } from 'history'
+//import { routerMiddleware } from 'connected-react-router'
+
+//export const history = createBrowserHistory()
 
 /*
 export const initializeStore = (state = initialState) => {
@@ -22,8 +26,6 @@ const persistConfig = {
 }
 
 const persistedReducer = persistReducer(persistConfig, reducer)
-
-
 
 export const initializeStore = (initialState = setinitialState) => {
   return createStore(
